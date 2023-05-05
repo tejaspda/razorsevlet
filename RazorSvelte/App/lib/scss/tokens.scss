@@ -1,0 +1,30 @@
+﻿.token {
+    @extend .badge;
+    @extend .rounded-pill;
+
+    align-items: center;
+    display: flex;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    font-weight: normal;
+}
+.clickable-token {
+    @extend .token;
+}
+.clickable-token:hover {
+    filter: brightness(60%);
+}
+a.clickable-token {
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+}
+.token.selected,
+.clickable-token.selected {
+    background-color: var(--bs-highlight-bg) !important;
+    color: var(--bs-dark) !important;
+}
+.token[disabled],
+.clickable-token[disabled] {
+    @extend .text-muted;
+}

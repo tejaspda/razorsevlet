@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<UserSecretsId>84c3b505-407a-4871-9626-559dab0267bf</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
+	</ItemGroup>
+
+	<ItemGroup Label="nesting">
+		<None Update="Pages\FormsDemo.rollup.config.js">
+			<DependentUpon>FormsDemo.cshtml</DependentUpon>
+		</None >
+		<None Update="Pages\FormsDemo.entry.ts">
+			<DependentUpon>FormsDemo.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\Settings.rollup.config.js">
+			<DependentUpon>Settings.cshtml</DependentUpon>
+		</None >
+		<None Update="Pages\Settings.entry.ts">
+			<DependentUpon>Settings.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\DataTable.rollup.config.js">
+			<DependentUpon>DataTable.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\DataTable.entry.ts">
+			<DependentUpon>DataTable.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\ChartDemo.rollup.config.js">
+			<DependentUpon>ChartDemo.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\ChartDemo.entry.ts">
+			<DependentUpon>ChartDemo.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\CardDemo.rollup.config.js">
+			<DependentUpon>CardDemo.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\CardDemo.entry.ts">
+			<DependentUpon>CardDemo.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\Index.rollup.config.js">
+			<DependentUpon>Index.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\Index.entry.ts">
+			<DependentUpon>Index.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\AuthorizedPage.rollup.config.js">
+			<DependentUpon>AuthorizedPage.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\AuthorizedPage.entry.ts">
+			<DependentUpon>AuthorizedPage.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\Error.rollup.config.js">
+			<DependentUpon>Error.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\Error.entry.ts">
+			<DependentUpon>Error.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\Login.rollup.config.js">
+			<DependentUpon>Login.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\Login.entry.ts">
+			<DependentUpon>Login.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\NotFound.rollup.config.js">
+			<DependentUpon>NotFound.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\NotFound.entry.ts">
+			<DependentUpon>NotFound.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\SpaExample.rollup.config.js">
+			<DependentUpon>SpaExample.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\SpaExample.entry.ts">
+			<DependentUpon>SpaExample.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\Unauthorized.rollup.config.js">
+			<DependentUpon>Unauthorized.cshtml</DependentUpon>
+		</None>
+		<None Update="Pages\Unauthorized.entry.ts">
+			<DependentUpon>Unauthorized.cshtml</DependentUpon>
+		</None>
+		<None Remove=".vscode\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
+</Project>

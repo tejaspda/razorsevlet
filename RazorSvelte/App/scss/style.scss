@@ -1,0 +1,23 @@
+﻿//@import "bootstrap";
+@import "material-bootstrap";
+
+//
+// icons
+//
+@import "material-design-icons";
+@import "bootstrap-icons";
+
+//
+// component styles
+//
+@import "../lib/scss/styles";
+
+//
+// custom styles
+//
+.fs-smaller {
+    font-size: smaller;
+}
+.fs-larger {
+    font-size: larger;
+}

@@ -1,0 +1,33 @@
+﻿@using System.Security.Claims
+@using Microsoft.IdentityModel.JsonWebTokens
+@{
+    var user = JsonSerializer.Serialize(new
+    {
+        isSigned = User.Identity?.IsAuthenticated,
+        name = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value,
+        email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
+        timezone = User.Claims.FirstOrDefault(c => c.Type == "timezone")?.Value,
+        timestamp = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.AuthTime)?.Value
+    });
+    var theme = Context.Request.Cookies[Consts.ThemeKey]?.ToString() ?? "dark";
+}
+<html lang="en" data-bs-theme="@theme">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @Consts.Title</title>
+    <link id="@Consts.ThemeKey" href="~/style.css" asp-append-version="true" rel="stylesheet" />
+    @await RenderSectionAsync("HeadSection", required: false)
+</head>
+<body class="d-flex flex-column h-100">
+    @*
+        These hiddens are needed by the header component on each page.
+        Display basic login info in the header and make urls available to the client.
+    *@
+    <input id="user" type="hidden" value='@Html.Raw(user)' />
+    <input id="theme-key" type="hidden" value='@Consts.ThemeKey' />
+    <input id="error-key" type="hidden" value='@Consts.ErrorKey' />
+    <input id="title" type="hidden" value='@Consts.Title' />
+    @RenderBody()
+</body>
+</html>

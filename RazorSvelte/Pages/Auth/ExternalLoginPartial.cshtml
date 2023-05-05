@@ -1,0 +1,68 @@
+﻿@model ExternalLoginPartial
+@{
+    Layout = null;
+    var theme = Context.Request.Cookies[Consts.ThemeKey]?.ToString() ?? "dark";
+}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="@theme">
+<head>
+    <meta charset="utf-8" />
+    <title>Talking to @Model?.ExternalType ...</title>
+</head>
+<body>
+    <script>
+    (async function () {
+        function paramsToObject(search) {
+            const hashes = search.slice(search.indexOf('?') + 1).split('&')
+            const params = {}
+            hashes.map(hash => {
+                const [key, val] = hash.split('=');
+                if (key && val) {
+                    params[key] = decodeURIComponent(val);
+                }
+            })
+            return params
+        }
+        let params = paramsToObject(window.location.search);
+        if (!Object.keys(params).length) {
+                sessionStorage.setItem("@Consts.StateKey", "@Model?.State");
+                sessionStorage.setItem("@Consts.ParamsKey", JSON.stringify(params));
+            document.location = "@Html.Raw(Model?.AuthUrl)";
+        } else {
+
+                const state = sessionStorage.getItem("@Consts.StateKey");
+                params = Object.assign(params, JSON.parse(sessionStorage.getItem("@Consts.ParamsKey") == null ? {} : sessionStorage.getItem("@Consts.ParamsKey")));
+                sessionStorage.removeItem("@Consts.StateKey");
+            if (!params.error && params.state !== state) {
+                params.error = "invalid code";
+            }
+            if (params.error) {
+                sessionStorage.setItem("@Consts.ErrorKey", params.error);
+                document.location = "@Urls.ErrorUrl";
+                return;
+            }
+            params["timezone"] = window.Intl ? Intl.DateTimeFormat().resolvedOptions().timeZone : null;
+            const response = await fetch("@Model?.LoginUrl", {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(params)
+            });
+            if (!response.ok) {
+                sessionStorage.setItem("@Consts.ErrorKey", await response.text());
+                document.location = "@Urls.ErrorUrl";
+                return;
+            }
+
+            //
+            // set other custom sessions
+            //
+            document.location = "@Urls.IndexUrl";
+        }
+    })();
+    </script>
+    <partial name="_Loading" />
+</body>
+</html>
